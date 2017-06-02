@@ -1080,13 +1080,14 @@ export default class SegmentLoader extends videojs.EventTarget {
    * @method addSegmentMetadataCue_
    */
   addSegmentMetadataCue_(segmentInfo) {
-    if (!this.segmentMetadataTrack_) {
-      return;
-    }
-
     const segment = segmentInfo.segment;
     const start = segment.start;
     const end = segment.end;
+
+    if (!this.segmentMetadataTrack_ ||
+        typeof start === 'undefined' || typeof end === 'undefined') {
+      return;
+    }
 
     removeCuesFromTrack(start, end, this.segmentMetadataTrack_);
 
